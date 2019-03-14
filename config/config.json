@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "favorite-doc-field-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/favoriteDoc/FavoriteDocFieldCustomizer.js",
+          "manifest": "./src/extensions/favoriteDoc/FavoriteDocFieldCustomizer.manifest.json"
+        }
+      ]
+    },
+    "remove-favorite-field-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/removeFavorite/RemoveFavoriteFieldCustomizer.js",
+          "manifest": "./src/extensions/removeFavorite/RemoveFavoriteFieldCustomizer.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "FavoriteDocFieldCustomizerStrings": "lib/extensions/favoriteDoc/loc/{locale}.js",
+    "RemoveFavoriteFieldCustomizerStrings": "lib/extensions/removeFavorite/loc/{locale}.js"
+  }
+}

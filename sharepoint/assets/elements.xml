@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <Field ID="{e41738a5-04e3-4de3-b7af-daad3c31ff29}"
+            Name="AddToFavorites"
+            DisplayName="AddToFavorites"
+            Type="Number"
+            Min="0"
+            Required="FALSE"
+            Group="SPFx Columns"
+            ClientSideComponentId="b9e6a724-05b1-41ef-b84f-654179c6d7d4">
+    </Field>
+    <Field ID="{5dcef343-110e-45dc-b2f5-13c5017f1510}"
+            Name="RemoveFromFavorites"
+            DisplayName="RemoveFromFavorites"
+            Type="Number"
+            Min="0"
+            Required="FALSE"
+            Group="SPFx Columns"
+            ClientSideComponentId="4cc1deac-47b4-4620-82ce-0bfad472265e">
+    </Field>
+</Elements>

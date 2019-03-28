@@ -67,10 +67,11 @@ export default class RemoveFavoriteFieldCustomizer
   }
 
   private onRemoveFavoriteClicked(id: string): void {
-    alert('Remove clicked' + id);
+    
     sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(parseInt(id)).delete()
     .then(() => {
       Log.info(LOG_SOURCE,'Deleted item: '+ id);
+      alert('Document removed from Favorites. Please refresh page.');
     })
   }
 }

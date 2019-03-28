@@ -1,5 +1,5 @@
 export interface IFavoriteDocProps {
     text: string;
     id: string;
-    onClick: () => void;
+    onClick: (id: string) => void;
   }

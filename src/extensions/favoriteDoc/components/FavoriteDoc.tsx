@@ -27,7 +27,6 @@ export default class FavoriteDoc extends React.Component<IFavoriteDocProps, IFav
   public render(): React.ReactElement<{}> {
     return (
       <div className={styles.cell}>
-        <Label>Add To Favorites</Label>>
         <PrimaryButton
           text="Add to Favorites"
           onClick={this.onClick.bind(this)}
@@ -38,7 +37,7 @@ export default class FavoriteDoc extends React.Component<IFavoriteDocProps, IFav
 
   private onClick(): void {
     if (this.props.onClick)
-      this.props.onClick();
+      this.props.onClick(this.props.id);
   }
 
  /*  private _alertClicked(): void {

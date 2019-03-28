@@ -12,7 +12,10 @@ import * as strings from 'FavoriteDocFieldCustomizerStrings';
 import FavoriteDoc from './components/FavoriteDoc';
 import { IFavoriteDocProps } from './components/IFavoriteDocProps';
 
-import {sp, Item, ItemAddResult} from '@pnp/sp';
+import {sp, Item, ItemAddResult, FileAddResult, Folder, DocumentLibraryInformation} from '@pnp/sp';
+import { CurrentUser } from '@pnp/sp/src/siteusers';
+
+import "@pnp/polyfill-ie11";
 
 /**
  * If your field customizer uses the ClientSideComponentProperties JSON input,
@@ -64,31 +67,41 @@ export default class FavoriteDocFieldCustomizer
     super.onDisposeCell(event);
   }
 
-  private onAddFavoriteClicked(): void {
-
-    alert('Clicked');
-
-    /* sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(1).get().then((item: any) => {
-      console.log(item);
-    }); */
-
+  private onAddFavoriteClicked(id: string): void {
     let userEmail: string;
-    sp.utility.getCurrentUserEmailAddresses().then((addressString: string): Promise<any> => {
+    let userID: number;
+    
+    /* sp.utility.getCurrentUserEmailAddresses().then((addressString: string): Promise<any> => {
       return Promise.resolve((addressString as any) as any);
     })
     .then((addressString: any): Promise<Item> => {
        userEmail = addressString; 
-       return sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(1).get();
+       return sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(1).expand('File').get();
+    }) */
+    sp.web.currentUser.get().then((r:CurrentUser) => {
+      console.log(r);
+      userID = r['Id'];
+      userEmail = r['Email'];
+      return sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(parseInt(id)).expand('File').get();
     })
     .then((item: Item): Promise<ItemAddResult> => {
       console.log(item);
       console.log(userEmail);
-      return sp.web.lists.getByTitle("My ScoreCard Library").items.add({
-        Title: item['ServerRedirectedEmbedUrl']
+      console.log(item['File'].Name + ' ' + item['File'].LinkingUrl);
+      return sp.web.lists.getByTitle("My Master Library").items.add({
+        Title: item['File'].Name,
+        DocType: item['DocType'],
+        URL: {
+          "__metadata": { type: "SP.FieldUrlValue" },
+            Description: item['File'].Name,
+            Url: item['File'].LinkingUrl
+        },
+        FavoritedById: userID
       })
     })
     .then((result: ItemAddResult): void => {
-      console.log("Add item has " + result.data)
+      //console.log("Add item has " + result.data)
+      alert('Document added to favorites');
     });
 
     

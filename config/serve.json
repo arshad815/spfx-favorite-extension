@@ -4,10 +4,10 @@
   "https": true,
   "serveConfigurations": {
     "default": {
-      "pageUrl": "https://fullstackninjas.sharepoint.com/sites/dev/Lists/My%20ScoreCard%20Library/AllItems.aspx",
+      "pageUrl": "https://fullstackninjas.sharepoint.com/sites/dev/ScoreCard%20Library/Forms/AllItems.aspx",
       "fieldCustomizers": {
-        "RemoveFromFavorites": {
-          "id": "4cc1deac-47b4-4620-82ce-0bfad472265e",
+        "AddToFavorites": {
+          "id": "b9e6a724-05b1-41ef-b84f-654179c6d7d4",
           "properties": {
             "sampleText": "Value"
           }

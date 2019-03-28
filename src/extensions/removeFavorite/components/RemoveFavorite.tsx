@@ -26,7 +26,6 @@ export default class RemoveFavorite extends React.Component<IRemoveFavoriteProps
   public render(): React.ReactElement<{}> {
     return (
       <div className={styles.cell}>
-        <Label>Remove From Favorites</Label>>
         <PrimaryButton
           text="Remove From Favorites"
           onClick={this.onClick.bind(this)}

@@ -12,7 +12,7 @@ import * as strings from 'FavoriteDocFieldCustomizerStrings';
 import FavoriteDoc from './components/FavoriteDoc';
 import { IFavoriteDocProps } from './components/IFavoriteDocProps';
 
-import {sp, Item, ItemAddResult, FileAddResult, Folder, DocumentLibraryInformation} from '@pnp/sp';
+import {sp, Item, ItemAddResult} from '@pnp/sp';
 import { CurrentUser } from '@pnp/sp/src/siteusers';
 
 import "@pnp/polyfill-ie11";
@@ -25,6 +25,7 @@ import "@pnp/polyfill-ie11";
 export interface IFavoriteDocFieldCustomizerProperties {
   // This is an example; replace with your own property
   sampleText?: string;
+  id: string;
 }
 
 const LOG_SOURCE: string = 'FavoriteDocFieldCustomizer';
@@ -79,24 +80,27 @@ export default class FavoriteDocFieldCustomizer
        return sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(1).expand('File').get();
     }) */
     sp.web.currentUser.get().then((r:CurrentUser) => {
-      console.log(r);
+      //console.log(r);
       userID = r['Id'];
       userEmail = r['Email'];
-      return sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(parseInt(id)).expand('File').get();
+      //return sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(parseInt(id)).expand('File').get();
+      return sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(parseInt(id)).get();
     })
     .then((item: Item): Promise<ItemAddResult> => {
       console.log(item);
       console.log(userEmail);
-      console.log(item['File'].Name + ' ' + item['File'].LinkingUrl);
+      //console.log(item['File'].Name + ' ' + item['File'].LinkingUrl);
       return sp.web.lists.getByTitle("My Master Library").items.add({
-        Title: item['File'].Name,
-        DocType: item['DocType'],
-        URL: {
+        Report_x0020_Name: {
           "__metadata": { type: "SP.FieldUrlValue" },
-            Description: item['File'].Name,
-            Url: item['File'].LinkingUrl
+          Url: item['Report_x0020_Name0'].Url,
+          Description: item['Report_x0020_Name0'].Description
         },
-        FavoritedById: userID
+        Report_x0020_Number: item['Report_x0020_Number'],
+        Report_x0020_Type: item['Report_x0020_Type'],
+        FavoritedById: userID,
+        Subject_x0020_Area: item["Subject_x0020_Area"],
+        Description: item["Description"]
       })
     })
     .then((result: ItemAddResult): void => {

@@ -70,7 +70,7 @@ export default class RemoveFavoriteFieldCustomizer
     
     sp.web.lists.getByTitle(this.context.pageContext.list.title).items.getById(parseInt(id)).delete()
     .then(() => {
-      Log.info(LOG_SOURCE,'Deleted item: '+ id);
+      //Log.info(LOG_SOURCE,'Deleted item: '+ id);
       alert('Document removed from Favorites. Please refresh page.');
     })
   }
